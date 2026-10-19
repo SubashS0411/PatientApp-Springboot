@@ -1,5 +1,6 @@
 package com.loq.student_app.mapper;
 
+import com.loq.student_app.dto.PatientRequestDTO;
 import com.loq.student_app.dto.PatientResponseDTO;
 import com.loq.student_app.model.Patient;
 import org.junit.jupiter.api.Test;
@@ -20,6 +21,7 @@ class PatientMapperTest {
         patient.setEmail("ada@example.com");
         patient.setAddress("1 Analytical Engine Way");
         patient.setDataofbirth(LocalDate.of(1815, 12, 10));
+        patient.setRegisterdate(LocalDate.of(2026, 10, 19));
 
         PatientResponseDTO response = PatientMapper.toDTO(patient);
 
@@ -28,6 +30,25 @@ class PatientMapperTest {
         assertEquals(patient.getEmail(), response.getEmail());
         assertEquals(patient.getAddress(), response.getAddress());
         assertEquals("1815-12-10", response.getDataofBirth());
+        assertEquals("2026-10-19", response.getRegisterdate());
+    }
+
+    @Test
+    void mapsRequestFieldsToPatient() {
+        PatientRequestDTO request = new PatientRequestDTO();
+        request.setName("Ada Lovelace");
+        request.setEmail("ada@example.com");
+        request.setAddress("1 Analytical Engine Way");
+        request.setDateofbirth("1815-12-10");
+        request.setRegisteredDate("2026-10-19");
+
+        Patient patient = PatientMapper.toModel(request);
+
+        assertEquals(request.getName(), patient.getName());
+        assertEquals(request.getEmail(), patient.getEmail());
+        assertEquals(request.getAddress(), patient.getAddress());
+        assertEquals(LocalDate.of(1815, 12, 10), patient.getDataofbirth());
+        assertEquals(LocalDate.of(2026, 10, 19), patient.getRegisterdate());
     }
 
     @Test

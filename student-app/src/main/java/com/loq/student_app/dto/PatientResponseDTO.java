@@ -6,6 +6,15 @@ public class PatientResponseDTO {
     private String email;
     private String address;
     private  String dataofBirth;
+    private String registerdate;
+
+    public String getRegisterdate() {
+        return registerdate;
+    }
+
+    public void setRegisterdate(String registerdate) {
+        this.registerdate = registerdate;
+    }
 
     public String getId() {
         return id;
